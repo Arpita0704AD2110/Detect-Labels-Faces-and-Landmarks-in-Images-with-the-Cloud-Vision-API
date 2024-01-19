@@ -1,0 +1,134 @@
+TASK 1
+`````````
+CREATE AN API_KEY :- Navigation menu > APIs & services > Credintials > Create credinitials > API key > copy the key > close
+
+RUN IN CLOUD SHELL :- export API_KEY=<YOUR_API_KEY>
+
+
+Task 2
+``````````
+CREATE CLOUD STORAGE BUCKET :- Navigation menu > cloud storage > buckets > create bucket > name it > create 
+
+UPLOAD AN IMAGES TO YOUR BUCKETS :- Upload files > select file  donuts.png > select edit access > add entry > Entity as publc , Name as allUsers , Access as Reader > save
+
+repeat the same for selfie.png , city.png also 
+
+
+TASK 3 
+`````````
+RUN IN CLOUD SHELL :- create request.json file > paste the below code > save  
+
+{
+  "requests": [
+      {
+        "image": {
+          "source": {
+              "gcsImageUri": "gs://<my-bucket-name>/donuts.png"
+          }
+        },
+        "features": [
+          {
+            "type": "LABEL_DETECTION",
+            "maxResults": 10
+          }
+        ]
+      }
+  ]
+}
+
+
+TASK 4 
+``````````
+RUN IN CLOUD SHELL :-
+
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json  https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}
+
+
+TASK 5 
+`````````
+Edit the request.json file with below code > save 
+
+{
+  "requests": [
+      {
+        "image": {
+          "source": {
+              "gcsImageUri": "gs://my-bucket-name/donuts.png"
+          }
+        },
+        "features": [
+          {
+            "type": "WEB_DETECTION",
+            "maxResults": 10
+          }
+        ]
+      }
+  ]
+}
+
+
+RUN IN CLOUD SHELL :- 
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json  https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}
+
+
+
+
+
+TASK 6
+``````````
+Update request.json file with below code > save 
+
+{
+  "requests": [
+      {
+        "image": {
+          "source": {
+              "gcsImageUri": "gs://my-bucket-name/selfie.png"
+          }
+        },
+        "features": [
+          {
+            "type": "FACE_DETECTION"
+          },
+          {
+            "type": "LANDMARK_DETECTION"
+          }
+        ]
+      }
+  ]
+}
+
+
+RUN IN CLOUD SHELL :-
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json  https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}
+
+
+
+TASK 7
+``````````
+Update request.json file with below code > save 
+
+{
+  "requests": [
+      {
+        "image": {
+          "source": {
+              "gcsImageUri": "gs://my-bucket-name/city.png"
+          }
+        },
+        "features": [
+          {
+            "type": "LANDMARK_DETECTION",
+            "maxResults": 10
+          }
+        ]
+      }
+  ]
+}
+
+
+RUN IN CLOUD SHELL :-
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json  https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}
+
+
+
